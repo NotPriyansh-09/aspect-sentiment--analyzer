@@ -1,15 +1,15 @@
-# Aspect Sentiment Analyzer 🧠
+# Aspect Sentiment & Research Studio 🧠
 
-A Streamlit web app for multi-domain review sentiment analysis, adapted from the supplied machine-learning notebook.
+A Streamlit academic project combining aspect-level customer-review sentiment analysis with live web search and searchable PDF notes.
 
 ## Features
 
-- Upload a CSV training dataset
-- Train a TF-IDF + multi-output Random Forest classifier
-- Predict sentiment across detected domains/aspects
-- Review per-domain accuracy and classification reports
-- Preview and download prepared training data
-- Purple/black gradient interface
+- **Web research:** Search public web indexes, select India/worldwide scope, view source snippets and links, and export a research brief as PDF.
+- **Research digest:** Creates a short extractive digest from search-result snippets. It does not use a generative AI model, and the user should open sources to verify claims.
+- **PDF library:** Upload multiple text-based PDFs and search for terms across their pages.
+- **Sentiment analysis:** Train a TF-IDF + multi-output Random Forest classifier and predict sentiment across domains/aspects.
+- **Evaluation:** Review per-domain accuracy and classification reports.
+- **Interactive workspace:** Session prediction history, reset controls, animated purple waves, and optional user-enabled ambient tone.
 
 ## Run locally
 
@@ -33,7 +33,21 @@ Upload a CSV containing these columns:
 | `Domain` | Aspect/domain label |
 | `Sentiment_Label` | `positive`, `negative`, or `neutral` |
 
-The dataset is uploaded through the app; it is not included in this repository.
+The dataset is uploaded through the app; it is not included in this repository. Web research and PDF search can be used without uploading the CSV.
+
+## Web search and research notes
+
+The app uses the `ddgs` Python library to query public search services without requiring a paid API key. Availability and result quality depend on those external providers; requests may be temporarily rate-limited. The app shows source links and snippets so findings can be checked.
+
+The current research digest is extractive (selected from snippets), not an LLM-written report or a substitute for reading the original sources.
+
+## PDF notes
+
+The PDF reader extracts selectable text. Scanned/image-only PDFs need OCR and may not return searchable text in this version.
+
+## Ambient sound
+
+The optional low-volume tone is off by default. The user must press its button to enable audio because browsers commonly block autoplay.
 
 ## Deploy publicly with Streamlit Community Cloud
 
