@@ -269,6 +269,22 @@ with tabs[0]:
         else:
             status=st.status("Starting your research…",expanded=True)
             progress=st.progress(8)
+            # This client-side mini panel remains animated while the server waits for search providers.
+            components.html("""
+            <div id="waitbox" style="font-family:Arial;color:#f3e8ff;background:linear-gradient(120deg,#1b1032,#100d20);border:1px solid #7045a0;border-radius:16px;padding:16px;overflow:hidden">
+              <div style="display:flex;align-items:center;gap:12px">
+                <div style="width:38px;height:38px;border:3px solid #4c2c70;border-top-color:#d8b4fe;border-radius:50%;animation:spin 1s linear infinite"></div>
+                <div><b>Research is in progress</b><div id="tip" style="font-size:12px;color:#c4b5d8;margin-top:4px">Checking sources and comparing evidence…</div></div>
+              </div>
+              <div style="height:5px;background:#302044;border-radius:9px;margin-top:14px;overflow:hidden"><div style="height:100%;width:42%;background:linear-gradient(90deg,#7c3aed,#e9d5ff);border-radius:9px;animation:load 2.2s ease-in-out infinite alternate"></div></div>
+              <button id="nexttip" style="margin-top:12px;background:#6d28d9;color:white;border:0;border-radius:8px;padding:7px 11px;cursor:pointer">✨ Give me a research tip</button>
+              <button id="pause" style="margin-top:12px;margin-left:6px;background:#302044;color:#e9d5ff;border:1px solid #7655a5;border-radius:8px;padding:7px 11px;cursor:pointer">Ⅱ Pause animation</button>
+            </div>
+            <style>@keyframes spin{to{transform:rotate(360deg)}}@keyframes load{from{width:18%}to{width:92%}}</style>
+            <script>
+            (()=>{const tips=["Check whether multiple sources agree before trusting a claim.","Prefer original research, official reports, and clearly dated sources.","Look for the publication date so older information is not mistaken for current news.","Separate what a source reports from what it assumes or recommends."];let i=0;const t=document.getElementById('tip'),n=document.getElementById('nexttip'),p=document.getElementById('pause'),box=document.getElementById('waitbox');n.onclick=()=>{i=(i+1)%tips.length;t.textContent=tips[i]};let paused=false;p.onclick=()=>{paused=!paused;box.querySelectorAll('div').forEach(x=>x.style.animationPlayState=paused?'paused':'running');p.textContent=paused?'▶ Resume animation':'Ⅱ Pause animation'};})();
+            </script>
+            """,height=154)
             status.write("🌊 Preparing search terms and connecting to public search providers…")
             try:
                 progress.progress(35)
