@@ -36,7 +36,22 @@ st.markdown("""
               radial-gradient(ellipse at 88% 22%, #21104a 0%, transparent 34%),
               linear-gradient(135deg,#080711 0%,#100b20 48%,#090812 100%);
   color:#f7f1ff; font-family:Inter,sans-serif;
+  position:relative; isolation:isolate;
 }
+.stApp:before {
+  content:""; position:fixed; left:-12%; bottom:-110px; width:124%; height:260px;
+  pointer-events:none; z-index:-1; opacity:.55;
+  background:radial-gradient(ellipse at 20% 45%,rgba(124,58,237,.32),transparent 48%),
+             radial-gradient(ellipse at 72% 52%,rgba(168,85,247,.23),transparent 50%);
+  border-top:2px solid rgba(192,132,252,.18); border-radius:48%;
+  animation:backgroundWave 13s ease-in-out infinite alternate;
+}
+@keyframes backgroundWave {
+  from {transform:translate3d(-2%,0,0) rotate(-2deg) scaleY(.92);}
+  to {transform:translate3d(2%,-20px,0) rotate(2deg) scaleY(1.08);}
+}
+@keyframes resultReveal {from{opacity:0;transform:translateY(12px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
+
 [data-testid="stHeader"] {background:rgba(8,7,17,.45);}
 .block-container {padding-top:1.6rem;max-width:1320px;}
 .hero {
@@ -52,7 +67,7 @@ st.markdown("""
 .hero h1 {font-size:clamp(1.8rem,4vw,2.7rem);font-weight:800;letter-spacing:-1px;margin:0;color:#fff;}
 .hero p {color:#d8c5f3;margin:.55rem 0 0;max-width:760px;}
 .glass {background:rgba(24,17,43,.78);border:1px solid rgba(167,139,250,.23);border-radius:17px;padding:16px 18px;}
-.result-card {background:linear-gradient(120deg,rgba(55,28,85,.75),rgba(21,17,36,.9));border:1px solid #62418b;padding:15px 18px;border-radius:15px;margin:8px 0;}
+.result-card {background:linear-gradient(120deg,rgba(55,28,85,.75),rgba(21,17,36,.9));border:1px solid #62418b;padding:15px 18px;border-radius:15px;margin:8px 0;animation:resultReveal .55s ease both;}
 .small-muted {color:#c4b5d8;font-size:.88rem;}
 div[data-testid="stMetric"] {background:rgba(27,19,46,.82);border:1px solid #4c3470;padding:15px;border-radius:15px;}
 .stButton>button,.stDownloadButton>button {background:linear-gradient(95deg,#7c3aed,#a855f7);color:white;border:0;border-radius:11px;font-weight:700;transition:all .2s ease;}
